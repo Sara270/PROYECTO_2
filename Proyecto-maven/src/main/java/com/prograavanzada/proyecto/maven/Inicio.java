@@ -20,7 +20,10 @@ JFileChooser seleccionar = new JFileChooser();
         File archivo;
         FileInputStream entrada;
         FileOutputStream salida;
-        ArrayStack stack = new ArrayStack();
+        DynamicStack  Stack= new DynamicStack();
+        String word= " ";
+        String documento;
+        int pos;
     /**
      * Creates new form Inicio
      */
@@ -28,7 +31,7 @@ JFileChooser seleccionar = new JFileChooser();
         initComponents();
     }
     public String AbrirArchivo (File archivo){
-        String documento = "";
+                documento = "";
         try {
             entrada = new FileInputStream(archivo);
             int i;
@@ -57,6 +60,7 @@ JFileChooser seleccionar = new JFileChooser();
         txtPrueba = new javax.swing.JTextField();
         Prueba = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -92,6 +96,13 @@ JFileChooser seleccionar = new JFileChooser();
             }
         });
 
+        jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -118,7 +129,9 @@ JFileChooser seleccionar = new JFileChooser();
                         .addComponent(Prueba))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton1)))
+                        .addComponent(jButton1)
+                        .addGap(53, 53, 53)
+                        .addComponent(jButton2)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -133,7 +146,9 @@ JFileChooser seleccionar = new JFileChooser();
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Prueba)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -166,20 +181,20 @@ JFileChooser seleccionar = new JFileChooser();
 
     private void PruebaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PruebaActionPerformed
         String caracter= txtarea.getText();
-        caracter.charAt(4);
-        String vacio =" ";
-        String salto= "/n";
+     
         
         /// obtine la ultima "e" de btree
+        
      
-                for(int i=0;i<17;i++){
-                    // while((caracter.charAt(i)).toString()!= null||caracter.charAt(i)!=salto.charAt(0) ){
-                       stack.push(caracter.charAt(i));
-                   //  }
-       
-                    
-                   
+                for(int i=7;i<caracter.length();i++){
+                        while(caracter.charAt(i)!= ' '){
+                         Stack.push(caracter.charAt(i));
+                         break;
+                        }
+                        
+                        
                 }
+                
                        
             
         
@@ -190,10 +205,16 @@ JFileChooser seleccionar = new JFileChooser();
     }//GEN-LAST:event_PruebaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        for(int i=0; i< stack.size(); i++){
-            txtPrueba.setText((java.lang.String) stack.pop());
+        for(int i=0; i< Stack.size(); i++){
+            txtPrueba.setText((java.lang.String) Stack.pop());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        PalabraPorLinea(documento);
+        txtPrueba.setText(word);
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -236,6 +257,7 @@ JFileChooser seleccionar = new JFileChooser();
     private javax.swing.JButton btnAbrir;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtPrueba;
@@ -245,4 +267,31 @@ JFileChooser seleccionar = new JFileChooser();
     private String String(char charAt) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    private String PalabraPorLinea(String caracter){
+        int i =0;
+            while(caracter.charAt(i)!= '\n'){
+                if(caracter.charAt(i)!= ' '&& i<caracter.length()){
+                     word+= caracter.charAt(i);
+                     i++;
+                }
+            }
+        return word;
+        
+    }
+    private int numeroPosicion(String documeto, int ultimaLinea){
+        
+        for (int i =ultimaLinea; i<documento.length();i++){
+            while(documento.charAt(i)== '\n'){
+                pos=i;
+                  break; 
+                }
+            
+            }
+        return pos;
+        }
+       
+
+        
+    
 }
