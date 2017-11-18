@@ -10,6 +10,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import gt.url.edu.demoestructuras.arboles.LinkedBinaryTree;
+
 
 /**
  *
@@ -292,6 +294,11 @@ JFileChooser seleccionar = new JFileChooser();
         }
        
 
-        
+        public void crearQueue(){
+           DynamicQueue cola= new DynamicQueue();
+           
+           
+            
+        }
     
 }
