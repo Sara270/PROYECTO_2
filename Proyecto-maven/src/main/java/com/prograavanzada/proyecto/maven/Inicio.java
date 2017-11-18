@@ -26,6 +26,7 @@ JFileChooser seleccionar = new JFileChooser();
         String word= " ";
         String documento;
         int pos;
+        int pos2;
     /**
      * Creates new form Inicio
      */
@@ -213,8 +214,9 @@ JFileChooser seleccionar = new JFileChooser();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        PalabraPorLinea(documento);
-        txtPrueba.setText(word);
+        //PalabraPorLinea(documento, pos);
+       // txtPrueba.setText(word);
+        funcional();
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -270,9 +272,9 @@ JFileChooser seleccionar = new JFileChooser();
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    private String PalabraPorLinea(String caracter){
+    private String PalabraPorLinea(String caracter, int pos1){
         int i =0;
-            while(caracter.charAt(i)!= '\n'){
+            while(caracter.charAt(i)!= '\r'){
                 if(caracter.charAt(i)!= ' '&& i<caracter.length()){
                      word+= caracter.charAt(i);
                      i++;
@@ -281,7 +283,7 @@ JFileChooser seleccionar = new JFileChooser();
         return word;
         
     }
-    private int numeroPosicion(String documeto, int ultimaLinea){
+    private int numeroPosicion(int ultimaLinea){
         
         for (int i =ultimaLinea; i<documento.length();i++){
             while(documento.charAt(i)== '\n'){
@@ -292,13 +294,91 @@ JFileChooser seleccionar = new JFileChooser();
             }
         return pos;
         }
-       
-
+           
         public void crearQueue(){
-           DynamicQueue cola= new DynamicQueue();
+           DynamicQueue cola= new DynamicQueue(); 
+           int i=pos;
+           pos2=numeroPosicion(pos);
+           while(i<pos2){
+               if(documento.charAt(i)!=' ')
+               cola.enqueue(documento.charAt(i));
+               
+           }
            
-           
+        }
+        public void crearStack(){
             
         }
+        public void crearBtree(){
+            
+        }
+        public void crearLinkedList(){
+            
+        }
+        public void crearDoubleLinkedList(){
+            
+        }
+        public void crearCircularLinkedList(){
+            
+        }
+      
+    public int Comparar(String estructura){
+        int n=0;  
+           
+       
+          String c= estructura;
+          
+           if ("Stack".equals(c)){
+                n=1;
+           }else if (c == "queue"){
+                n=2;
+           }else if (c=="linkedlist"){
+                n=3;
+           }else if(c== "circularlinkedlist"){
+                n=4;
+           }else if(c=="doublelinkedlist"){
+                n=5;
+           }else if (c == "btree"){
+               n=6;
+           }else{
+               n=7;
+           }
+           return n;
+     }
+    public void CrearEstructura(int opcion, int posicion){
+          int op = 6;
+          int i =posicion;
+            while(documento.charAt(i)!= documento.length()){
+
+                    
+                    
+                     switch (op){
+                case 1: crearStack();
+                    break;
+                case 2: crearQueue();
+                    break;
+                case 3: crearLinkedList();
+                    break;
+                case 4: crearDoubleLinkedList();
+                    break;
+                case 5: crearBtree();
+                    break;
+                default: JOptionPane.showMessageDialog(null, "Estructura Invalida");             
+                     } 
+                     i++;
+                     
+            }
+            
+    }
+    public void funcional(){
+        while(pos< documento.length()){
+           String estructura= PalabraPorLinea(documento,pos);
+           Comparar(estructura);
+           CrearEstructura(Comparar(estructura),numeroPosicion(pos));
+           
+           
+        }
+    }
+
     
 }
