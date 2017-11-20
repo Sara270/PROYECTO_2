@@ -327,23 +327,27 @@ JFileChooser seleccionar = new JFileChooser();
            
        
           String c= estructura;
-          
-           if ("Stack".equals(c)){
-                n=1;
-           }else if (c == "queue"){
-                n=2;
-           }else if (c=="linkedlist"){
-                n=3;
-           }else if(c== "circularlinkedlist"){
-                n=4;
-           }else if(c=="doublelinkedlist"){
-                n=5;
-           }else if (c == "btree"){
-               n=6;
-           }else{
-               n=7;
-           }
-           return n;
+          if(" stack".equals(c)){
+              n=1;
+          }
+          if( " queue".equals(c)){
+              n=2;
+          }
+          if (" linkedlist".equals(c)){
+              n=3;
+          }
+          if(" doublelinkedlist".equals(c)){
+               n=4;
+          }
+          if (" circularlinkedlist".equals(c)){
+              n=5;
+          }
+          if(" btree".equals(c)){
+              n=6;
+          }
+             
+              
+          return n;
      }
     public void CrearEstructura(int opcion, int posicion){
           int op = 6;
@@ -373,8 +377,8 @@ JFileChooser seleccionar = new JFileChooser();
     public void funcional(){
         while(pos< documento.length()){
            String estructura= PalabraPorLinea(documento,pos);
-           Comparar(estructura);
-           CrearEstructura(Comparar(estructura),numeroPosicion(pos));
+          int op= Comparar(estructura);
+           CrearEstructura(op,numeroPosicion(pos));
            
            
         }
