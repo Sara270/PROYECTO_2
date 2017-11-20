@@ -23,6 +23,7 @@ JFileChooser seleccionar = new JFileChooser();
         FileInputStream entrada;
         FileOutputStream salida;
         DynamicStack  Stack= new DynamicStack();
+        DynamicQueue queue= new DynamicQueue(); 
         String word= " ";
         String documento;
         int pos;
@@ -252,7 +253,8 @@ JFileChooser seleccionar = new JFileChooser();
     }
     
     private String PalabraPorLinea(String caracter, int pos1){
-        int i =0;
+        int i =pos1;
+        word=" ";
             while(caracter.charAt(i)!= '\r'){
                 if(caracter.charAt(i)!= ' '&& i<caracter.length()){
                      word+= caracter.charAt(i);
@@ -272,25 +274,34 @@ JFileChooser seleccionar = new JFileChooser();
         return pos;
         }
            
-        public void crearQueue(){
-           DynamicQueue cola= new DynamicQueue(); 
-           int i=pos;
-           pos2=numeroPosicion(pos);
-           while(i<pos2){
-               if(documento.charAt(i)!=' ')
-               cola.enqueue(documento.charAt(i));
-           }  
+        public int crearQueue(int posicion){
+            String caracter= txtarea.getText();
+           int i=0;
+      
+          for( i=posicion;i<caracter.length();i++){
+              if ((caracter.charAt(i) != '\r') && (caracter.charAt(i)!= ' ') ){
+                         queue.enqueue(caracter.charAt(i));
+                         } else if ((caracter.charAt(i) == '\r')){
+                          break;   
+             }
+          }
+               JOptionPane.showMessageDialog(null, "queue Creado"); 
+                return i;
         }
-        public void crearStack(int posicion){
-            String caracter= txtarea.getText();  
-            for(int i=posicion;i<caracter.length();i++){
+        public int crearStack(int posicion){
+            String caracter= txtarea.getText();
+            int i=0;
+            for( i=posicion;i<caracter.length();i++){
                if ((caracter.charAt(i) != '\r') && (caracter.charAt(i)!= ' ') ){
                          Stack.push(caracter.charAt(i));
                          } else if ((caracter.charAt(i) == '\r')){
                           break;   
                   }
+               
+               
             }
         JOptionPane.showMessageDialog(null, "Stack Creado"); 
+        return i;
         }
         public void crearBtree(){
             
@@ -328,26 +339,24 @@ JFileChooser seleccionar = new JFileChooser();
            }
            return n;
      }
-    public void CrearEstructura(int opcion, int posicion){
+    public int CrearEstructura(int opcion, int posicion){
           
-          int i =posicion;
-            while(documento.charAt(i)!= documento.length()){
-            
+            int nposFinal=0;
                      switch (opcion){
-                case 1: crearStack(i);
+                case 1: nposFinal=crearStack(posicion);
                     break;
-                case 2: crearQueue();
+                case 2: nposFinal= crearQueue(posicion);
                     break;
                 case 3: crearLinkedList();
                     break;
                 case 4: crearDoubleLinkedList();
                     break;
                 case 5: crearBtree();
+                       
                     break;
                 default: JOptionPane.showMessageDialog(null, "Estructura Invalida");             
-                     } 
-                     i++;  
-            }     
+            }  
+                     return nposFinal;
     }
     public void funcional(){
         int var;
@@ -356,8 +365,9 @@ JFileChooser seleccionar = new JFileChooser();
            String estructura= PalabraPorLinea(documento,pos);
            var = Comparar(estructura);
            npos = numeroPosicion(pos);
-           npos += 2;
-           CrearEstructura(var,npos);           
+           npos += 1;
+           npos=(CrearEstructura(var,npos)+2);
+           pos=npos;
         }
     }  
 }
