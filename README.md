@@ -39,9 +39,34 @@ Metodo NumeroPosicion
 -------------------------
 + Este metodo se encarga de recorer las pociciones iniciadas en un punto hasta encontrar el salto de linea, y retorna el numero de posicion donde se encuentra el salto de linea.
 ~~~
-
+ private int numeroPosicion(int ultimaLinea){
+        for (int i =ultimaLinea; i<documento.length();i++){
+            if(documento.charAt(i)== '\n'){
+                pos=i;
+                  break; 
+                }
+            }
+        return pos;
+        }
  ~~~
  Metodo CrearStack
  -----------------------------
- 
+ + Este metodo crea un stack utilizando los valores desde la posicion ngresada hasta el salto de linea 
+ ~~~
+   public int crearStack(int posicion){
+            String caracter= txtarea.getText();
+            int i=0;
+            for( i=posicion;i<caracter.length();i++){
+               if ((caracter.charAt(i) != '\r') && (caracter.charAt(i)!= ' ') ){
+                         Stack.push(caracter.charAt(i));
+                         } else if ((caracter.charAt(i) == '\r')){
+                          break;   
+                  }
+               
+               
+            }
+        JOptionPane.showMessageDialog(null, "Stack Creado"); 
+        return i;
+        }
+ ~~~
 
